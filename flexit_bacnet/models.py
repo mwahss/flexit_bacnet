@@ -19,7 +19,7 @@ MODELS = {
     800300: "KS3 RER",
     800301: "KS3 REL",
 
-    # NordicEco models
+    # EcoNordic models
     800501: "WH4",
     800502: "W4",
     800505: "WH4 XL",

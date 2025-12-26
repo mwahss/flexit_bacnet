@@ -22,7 +22,7 @@ class FlexitBACnet:
         self._state: Optional[bacnet.DeviceState] = None
 
         # property mapping for the specific product line (nordic/econordic)
-        self._prop_map: Optional[any] = None
+        self._prop_map: Optional[Any] = None
 
     @property
     def _device_property(self) -> bacnet.DeviceProperty:
@@ -32,7 +32,7 @@ class FlexitBACnet:
             read_values=[bacnet.ReadValue.OBJECT_NAME, bacnet.ReadValue.DESCRIPTION],
         )
 
-    async def _get_property_mapping(self) -> any:
+    async def _get_property_mapping(self) -> Any:
         """Return property mapping module based on product line."""
         self._state = await self.bacnet.read_multiple([self._device_property])
 
@@ -376,6 +376,7 @@ class FlexitBACnet:
     async def set_fan_setpoint_supply_air_away(self, percent: int) -> None:
         """Set fan setpoint for supply air AWAY in percent."""
         await self._set_value(self._prop_map.LINEAR_SETPOINT_SUPPLY_AIR_AWAY, percent)
+
     @property
     def fan_setpoint_extract_air_away(self) -> int:
         """Return fan setpoint for extract air AWAY in percent."""
@@ -384,6 +385,7 @@ class FlexitBACnet:
     async def set_fan_setpoint_extract_air_away(self, percent: int) -> None:
         """Set fan setpoint for extract air AWAY in percent."""
         await self._set_value(self._prop_map.LINEAR_SETPOINT_EXHAUST_AIR_AWAY, percent)
+
     @property
     def fan_setpoint_supply_air_cooker(self) -> int:
         """Return fan setpoint for supply air COOKER in percent."""
@@ -392,6 +394,7 @@ class FlexitBACnet:
     async def set_fan_setpoint_supply_air_cooker(self, percent: int) -> None:
         """Set fan setpoint for supply air COOKER in percent."""
         await self._set_value(self._prop_map.LINEAR_SETPOINT_SUPPLY_AIR_COOKER, percent)
+
     @property
     def fan_setpoint_extract_air_cooker(self) -> int:
         """Return fan setpoint for extract air COOKER in percent."""
@@ -400,6 +403,7 @@ class FlexitBACnet:
     async def set_fan_setpoint_extract_air_cooker(self, percent: int) -> None:
         """Set fan setpoint for extract air COOKER in percent."""
         await self._set_value(self._prop_map.LINEAR_SETPOINT_EXHAUST_AIR_COOKER, percent)
+
     @property
     def fan_setpoint_supply_air_fire(self) -> int:
         """Return fan setpoint for supply air FIRE in percent."""
@@ -417,6 +421,7 @@ class FlexitBACnet:
     async def set_fan_setpoint_extract_air_fire(self, percent: int) -> None:
         """Set fan setpoint for extract air FIRE in percent."""
         await self._set_value(self._prop_map.LINEAR_SETPOINT_EXHAUST_AIR_FIRE, percent)
+
     @property
     def air_filter_operating_time(self) -> float:
         """Return air filter operating time in hours."""
@@ -424,6 +429,7 @@ class FlexitBACnet:
 
     @property
     def air_filter_exchange_interval(self) -> float:
+        """Return air filter exchange interval in hours."""
         return float(self._get_value(self._prop_map.AIR_FILTER_TIME_PERIOD_FOR_EXCHANGE))
 
     @property
@@ -493,7 +499,7 @@ class FlexitBACnet:
             raise Exception("DHW temperature setpoint is only available on EcoNordic models")
 
         return float(self._get_value(econordic.DHW_TEMPERATURE_SETPOINT_COMFORT))
-    
+
     async def set_dhw_temperature_setpoint_comfort(self, temperature: float) -> None:
         """Set Domestic Hot Water (DHW) temperature setpoint for Comfort mode.
 
@@ -513,7 +519,7 @@ class FlexitBACnet:
             raise Exception("DHW temperature setpoint is only available on EcoNordic models")
 
         return float(self._get_value(econordic.DHW_TEMPERATURE_SETPOINT_ECONOMY))
-    
+
     async def set_dhw_temperature_setpoint_economy(self, temperature: float) -> None:
         """Set Domestic Hot Water (DHW) temperature setpoint for Economy mode.
 
@@ -533,7 +539,7 @@ class FlexitBACnet:
             raise Exception("DHW tank temperature is only available on EcoNordic models")
 
         return float(self._get_value(econordic.DHW_TANK_TEMPERATURE_TOP))
-    
+
     @property
     def dhw_tank_temperature_middle(self) -> float:
         """Return Domestic Hot Water (DHW) tank middle temperature."""
@@ -542,7 +548,7 @@ class FlexitBACnet:
             raise Exception("DHW tank temperature is only available on EcoNordic models")
 
         return float(self._get_value(econordic.DHW_TANK_TEMPERATURE_MIDDLE))
-    
+
     @property
     def dhw_tank_temperature_bottom(self) -> float:
         """Return Domestic Hot Water (DHW) tank bottom temperature."""
@@ -551,7 +557,7 @@ class FlexitBACnet:
             raise Exception("DHW tank temperature is only available on EcoNordic models")
 
         return float(self._get_value(econordic.DHW_TANK_TEMPERATURE_BOTTOM))
-    
+
     @property
     def dhw_electric_heater_status(self) -> int:
         """Return Domestic Hot Water (DHW) electric heater status (0 - 100%)."""
@@ -560,7 +566,7 @@ class FlexitBACnet:
             raise Exception("DHW electric heater status is only available on EcoNordic models")
 
         return int(self._get_value(econordic.DHW_ELECTRIC_HEATER_STATUS))
-    
+
     @property
     def space_heating_setpoint(self) -> float:
         """Return room temperature setpoint for heating circuit 1."""
@@ -568,8 +574,8 @@ class FlexitBACnet:
         if self.product_line != econordic.PRODUCT_LINE:
             raise Exception("Space heating setpoint is only available on EcoNordic models")
 
-        return float(self._get_value(econordic.ROOM_TEMP_SETPOINT_HEATING_CIRCUIT_1))
-    
+        return float(self._get_value(econordic.HEATING_CIRCUIT_1_ROOM_TEMPERATURE_SETPOINT))
+
     async def set_space_heating_setpoint(self, temperature: float) -> None:
         """Set room temperature setpoint for heating circuit 1.
 
@@ -579,7 +585,7 @@ class FlexitBACnet:
         if self.product_line != econordic.PRODUCT_LINE:
             raise Exception("Space heating setpoint is only available on EcoNordic models")
 
-        await self._set_value(econordic.ROOM_TEMP_SETPOINT_HEATING_CIRCUIT_1, temperature)
+        await self._set_value(econordic.HEATING_CIRCUIT_1_ROOM_TEMPERATURE_SETPOINT, temperature)
 
     @property
     def heat_pump_state(self) -> int:
