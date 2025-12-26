@@ -1,10 +1,12 @@
-"""Flexit Nordic series config.
+"""Flexit EcoNordic series config.
 
-Based on https://www.flexit.no/globalassets/catalog/documents/bacnet-nordic-basic_2963.xlsx
+Based on information from mwahss on Home Assistant Community Forum:
+https://community.home-assistant.io/t/flexit-nordic-bacnet-roadmap-ideas/675223/60
 """
 from .bacnet import DeviceProperty, ObjectType
 
-PRODUCT_LINE = "Nordic"
+PRODUCT_LINE = "EcoNordic"
+SERIAL_PREFIX = "80050"
 
 # Comfort button [RW]
 # 0 = Ventilation mode Away after Away delay timer duration [Pintval,318].
@@ -44,29 +46,29 @@ AIR_TEMP_SETPOINT_AWAY = DeviceProperty(ObjectType.ANALOG_VALUE, 1985)
 AIR_TEMP_SETPOINT_HOME = DeviceProperty(ObjectType.ANALOG_VALUE, 1994)
 
 # Trigger temporary fireplace ventilation
-FIREPLACE_VENTILATION = DeviceProperty(ObjectType.MULTI_STATE_VALUE, 360)
+FIREPLACE_VENTILATION = DeviceProperty(ObjectType.MULTI_STATE_VALUE, 358)
 FIREPLACE_VENTILATION_TRIGGER = 2
 
 # Fireplace ventilation runtime (e.g. 10 minutes)
 FIREPLACE_VENTILATION_RUNTIME = DeviceProperty(ObjectType.POSITIVE_INTEGER_VALUE, 270)
 
 # Fireplace ventilation remaining time in minutes
-FIREPLACE_VENTILATION_REMAINING_DURATION = DeviceProperty(ObjectType.ANALOG_VALUE, 2038)
+FIREPLACE_VENTILATION_REMAINING_DURATION = DeviceProperty(ObjectType.ANALOG_VALUE, 2036)
 
 # Fireplace status
-FIREPLACE_STATE = DeviceProperty(ObjectType.BINARY_VALUE, 400)
+FIREPLACE_STATE = DeviceProperty(ObjectType.BINARY_VALUE, 421)
 FIREPLACE_STATE_ACTIVE = 1
 FIREPLACE_STATE_INACTIVE = 0
 
 # Trigger temporary rapid ventilation
-RAPID_VENTILATION = DeviceProperty(ObjectType.MULTI_STATE_VALUE, 357)
+RAPID_VENTILATION = DeviceProperty(ObjectType.MULTI_STATE_VALUE, 355)
 RAPID_VENTILATION_TRIGGER = 2
 
 # Rapid ventilation runtime (e.g. 10 minutes)
 RAPID_VENTILATION_RUNTIME = DeviceProperty(ObjectType.POSITIVE_INTEGER_VALUE, 293)
 
 # Rapid ventilation remaining time in minutes
-RAPID_VENTILATION_REMAINING_DURATION = DeviceProperty(ObjectType.ANALOG_VALUE, 2031)
+RAPID_VENTILATION_REMAINING_DURATION = DeviceProperty(ObjectType.ANALOG_VALUE, 2029)
 
 # Outside air temperature (e.g. 10.680000305175781 degreesCelsius)
 OUTSIDE_AIR_TEMPERATURE = DeviceProperty(ObjectType.ANALOG_INPUT, 1)
@@ -114,39 +116,39 @@ ELECTRIC_HEATER_NOM_POWER = DeviceProperty(ObjectType.ANALOG_VALUE, 190)
 HEATING_COIL_ELECTRIC_POWER = DeviceProperty(ObjectType.ANALOG_VALUE, 194)
 
 # Cooker hood, activate (e.g. inactive)
-COOKER_HOOD = DeviceProperty(ObjectType.BINARY_VALUE, 402, priority=13)
+COOKER_HOOD = DeviceProperty(ObjectType.BINARY_VALUE, 2, priority=13)
 COOKER_HOOD_ACTIVE = 1
 COOKER_HOOD_INACTIVE = 0
 
 # Linear, setpoint supply air HIGH (e.g. 100.0 percent)
-LINEAR_SETPOINT_SUPPLY_AIR_HIGH = DeviceProperty(ObjectType.ANALOG_VALUE, 1835)
+LINEAR_SETPOINT_SUPPLY_AIR_HIGH = DeviceProperty(ObjectType.ANALOG_VALUE, 20)
 
 # Linear, setpoint supply air HOME (e.g. 70.0 percent)
-LINEAR_SETPOINT_SUPPLY_AIR_HOME = DeviceProperty(ObjectType.ANALOG_VALUE, 1836)
+LINEAR_SETPOINT_SUPPLY_AIR_HOME = DeviceProperty(ObjectType.ANALOG_VALUE, 19)
 
 # Linear, setpoint supply air AWAY (e.g. 50.0 percent)
-LINEAR_SETPOINT_SUPPLY_AIR_AWAY = DeviceProperty(ObjectType.ANALOG_VALUE, 1837)
+LINEAR_SETPOINT_SUPPLY_AIR_AWAY = DeviceProperty(ObjectType.ANALOG_VALUE, 18)
 
 # Linear, setpoint supply air FIRE (e.g. 90.0 percent)
-LINEAR_SETPOINT_SUPPLY_AIR_FIRE = DeviceProperty(ObjectType.ANALOG_VALUE, 1838)
+LINEAR_SETPOINT_SUPPLY_AIR_FIRE = DeviceProperty(ObjectType.ANALOG_VALUE, 16)
 
 # Linear, setpoint supply air COOKER (e.g. 90.0 percent)
-LINEAR_SETPOINT_SUPPLY_AIR_COOKER = DeviceProperty(ObjectType.ANALOG_VALUE, 1839)
+LINEAR_SETPOINT_SUPPLY_AIR_COOKER = DeviceProperty(ObjectType.ANALOG_VALUE, 15)
 
 # Linear, setpoint exhaust air HIGH (e.g. 100.0 percent)
-LINEAR_SETPOINT_EXHAUST_AIR_HIGH = DeviceProperty(ObjectType.ANALOG_VALUE, 1840)
+LINEAR_SETPOINT_EXHAUST_AIR_HIGH = DeviceProperty(ObjectType.ANALOG_VALUE, 14)
 
 # Linear, setpoint exhaust air HOME (e.g. 70.0 percent)
-LINEAR_SETPOINT_EXHAUST_AIR_HOME = DeviceProperty(ObjectType.ANALOG_VALUE, 1841)
+LINEAR_SETPOINT_EXHAUST_AIR_HOME = DeviceProperty(ObjectType.ANALOG_VALUE, 13)
 
 # Linear, setpoint exhaust air AWAY (e.g. 50.0 percent)
-LINEAR_SETPOINT_EXHAUST_AIR_AWAY = DeviceProperty(ObjectType.ANALOG_VALUE, 1842)
+LINEAR_SETPOINT_EXHAUST_AIR_AWAY = DeviceProperty(ObjectType.ANALOG_VALUE, 12)
 
 # Linear, setpoint exhaust air FIRE (e.g. 50.0 percent)
-LINEAR_SETPOINT_EXHAUST_AIR_FIRE = DeviceProperty(ObjectType.ANALOG_VALUE, 1843)
+LINEAR_SETPOINT_EXHAUST_AIR_FIRE = DeviceProperty(ObjectType.ANALOG_VALUE, 11)
 
 # Linear, setpoint exhaust air COOKER (e.g. 50.0 percent)
-LINEAR_SETPOINT_EXHAUST_AIR_COOKER = DeviceProperty(ObjectType.ANALOG_VALUE, 1844)
+LINEAR_SETPOINT_EXHAUST_AIR_COOKER = DeviceProperty(ObjectType.ANALOG_VALUE, 10)
 
 # Air filter, operating time (e.g. 0.0 hours)
 AIR_FILTER_OPERATING_TIME = DeviceProperty(ObjectType.ANALOG_VALUE, 285)
@@ -159,7 +161,7 @@ AIR_FILTER_POLLUTED = DeviceProperty(ObjectType.BINARY_VALUE, 522)
 AIR_FILTER_POLLUTED_ACTIVE = 1
 
 # Air filter replace timer reset (e.g. 1 None)
-AIR_FILTER_REPLACE_TIMER_RESET = DeviceProperty(ObjectType.MULTI_STATE_VALUE, 613)
+AIR_FILTER_REPLACE_TIMER_RESET = DeviceProperty(ObjectType.MULTI_STATE_VALUE, 609)
 AIR_FILTER_REPLACE_TIMER_RESET_TRIGGER = 2
 
 # Humidity sensors
@@ -167,6 +169,47 @@ EXTRACT_AIR_HUMIDITY = DeviceProperty(ObjectType.ANALOG_INPUT, 96)  # available 
 ROOM_1_HUMIDITY = DeviceProperty(ObjectType.ANALOG_VALUE, 2093)
 ROOM_2_HUMIDITY = DeviceProperty(ObjectType.ANALOG_VALUE, 2094)
 ROOM_3_HUMIDITY = DeviceProperty(ObjectType.ANALOG_VALUE, 2095)
+
+# DHW - Domestic Hot Water
+
+# DHW operating mode
+DHW_OPERATION_MODE = DeviceProperty(ObjectType.MULTI_STATE_VALUE, 39)
+DHW_OPERATION_MODE_COMFORT = 1
+DHW_OPERATION_MODE_ECONOMY = 2
+DHW_OPERATION_MODE_BOOST = 3
+
+# DHW temporary boost (timed)
+DHW_TEMPORARY_BOOST = DeviceProperty(ObjectType.MULTI_STATE_VALUE, 424)
+DHW_TEMPORARY_BOOST_START = 2
+DHW_TEMPORARY_BOOST_STOP = 3
+
+# DHW temperature setpoints
+DHW_TEMPERATURE_SETPOINT_COMFORT = DeviceProperty(ObjectType.ANALOG_VALUE, 253)
+DHW_TEMPERATURE_SETPOINT_ECONOMY = DeviceProperty(ObjectType.ANALOG_VALUE, 2127)
+
+# DHW tank temperatures
+DHW_TANK_TEMPERATURE_BOTTOM = DeviceProperty(ObjectType.ANALOG_INPUT, 58)
+DHW_TANK_TEMPERATURE_MIDDLE = DeviceProperty(ObjectType.ANALOG_INPUT, 69)
+DHW_TANK_TEMPERATURE_TOP = DeviceProperty(ObjectType.ANALOG_INPUT, 70)
+
+# DHW electric heater status (0 - 100%)
+DHW_ELECTRIC_HEATER_STATUS = DeviceProperty(ObjectType.ANALOG_VALUE, 264)
+
+# Room temp.setpoint for heating circuit 1 (e.g. 21.0 degreesCelsius)
+HEATING_CIRCUIT_1_ROOM_TEMPERATURE_SETPOINT = DeviceProperty(ObjectType.ANALOG_VALUE, 1918)
+
+# Heat pump state
+HEAT_PUMP_STATE = DeviceProperty(ObjectType.MULTI_STATE_INPUT, 1)
+HEAT_PUMP_STATE_STANDBY = 1
+HEAT_PUMP_STATE_AIR_PURGE_PROCESS = 2
+HEAT_PUMP_STATE_STARTUP_PROCESS = 3
+HEAT_PUMP_STATE_NORMAL_OPERATION = 4
+HEAT_PUMP_STATE_STOP_PROCESS = 5
+HEAT_PUMP_STATE_DEFROST_OPERATION = 6
+HEAT_PUMP_STATE_STANDBY_WHEN_ERROR = 7
+HEAT_PUMP_STATE_MANUAL_OPERATION = 8
+HEAT_PUMP_STATE_FORCED_FAN_OPERATION = 9
+HEAT_PUMP_STATE_FORCED_PUMP_OPERATION = 10
 
 # List of all DeviceProperties defined in this file
 DEVICE_PROPERTIES = [
