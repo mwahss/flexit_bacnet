@@ -526,6 +526,29 @@ class FlexitBACnet:
 
         await self._set_value(econordic.DHW_TEMPORARY_BOOST, econordic.DHW_TEMPORARY_BOOST_STOP)
 
+    async def dhw_forced_charge_start(self) -> None:
+        """Start a forced charge of the Domestic Hot Water (DHW) tank.
+
+        The heat pump charges the tank up to the tank setpoint regardless of
+        the DHW operation mode. There is no stop command: the charge runs
+        until the unit's own stop condition is met. Check `dhw_state ==
+        DHW_STATE_FORCED_CHARGE` to see whether a forced charge is running.
+        """
+
+        if self.product_line != econordic.PRODUCT_LINE:
+            raise Exception("DHW forced charge is only available on EcoNordic models")
+
+        await self._set_value(econordic.DHW_FORCED_CHARGE, econordic.DHW_FORCED_CHARGE_START)
+
+    @property
+    def dhw_state(self) -> int:
+        """Return current Domestic Hot Water (DHW) state (one of econordic.DHW_STATE_*)."""
+
+        if self.product_line != econordic.PRODUCT_LINE:
+            raise Exception("DHW state is only available on EcoNordic models")
+
+        return int(self._get_value(econordic.DHW_STATE))
+
     @property
     def dhw_temperature_setpoint_comfort(self) -> float:
         """Return Domestic Hot Water (DHW) temperature setpoint for Comfort mode."""

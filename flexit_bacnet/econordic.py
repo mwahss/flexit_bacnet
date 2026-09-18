@@ -185,6 +185,22 @@ DHW_TEMPORARY_BOOST = DeviceProperty(ObjectType.MULTI_STATE_VALUE, 424)
 DHW_TEMPORARY_BOOST_START = 2
 DHW_TEMPORARY_BOOST_STOP = 3
 
+# DHW forced charge (trigger). Starts a heat pump charge of the tank up to the
+# tank setpoint regardless of the operating mode. There is no stop command:
+# the charge runs until the unit's own stop condition is met.
+DHW_FORCED_CHARGE = DeviceProperty(ObjectType.MULTI_STATE_VALUE, 425, priority=13)
+DHW_FORCED_CHARGE_START = 2
+
+# DHW state (read-only) - what the DHW production is doing right now
+DHW_STATE = DeviceProperty(ObjectType.MULTI_STATE_VALUE, 423)
+DHW_STATE_COMFORT = 1
+DHW_STATE_ECONOMY = 2
+DHW_STATE_BOOST = 3
+DHW_STATE_TEMPORARY_BOOST = 4
+DHW_STATE_FORCED_CHARGE = 5
+DHW_STATE_ECONOMY_DELAY = 6
+DHW_STATE_LEGIONELLA_PREVENTION = 7
+
 # DHW temperature setpoints
 DHW_TEMPERATURE_SETPOINT_COMFORT = DeviceProperty(ObjectType.ANALOG_VALUE, 253)
 DHW_TEMPERATURE_SETPOINT_ECONOMY = DeviceProperty(ObjectType.ANALOG_VALUE, 2127)
